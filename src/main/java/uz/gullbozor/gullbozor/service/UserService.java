@@ -3,6 +3,7 @@ package uz.gullbozor.gullbozor.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.gullbozor.gullbozor.apiResponse.ApiResponse;
+import uz.gullbozor.gullbozor.dto.EditUserDto;
 import uz.gullbozor.gullbozor.entity.UserEntity;
 import uz.gullbozor.gullbozor.repository.UserRepo;
 
@@ -23,8 +24,6 @@ public class UserService {
         }
 
         UserEntity user = new UserEntity();
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
         user.setUserName(userDto.getUsername());
         user.setPassword(userDto.getPassword());
         userRepo.save(user);
@@ -33,22 +32,26 @@ public class UserService {
 
     }
 
-    public ApiResponse editUser(UserEntity userDto, Long id) {
+    public ApiResponse editUser(EditUserDto userDto, Long id) {
 
         if (!userRepo.existsById(id)) {
             return new ApiResponse("Not found user account",false);
         }
 
-        if (userRepo.existsByUserNameAndPassword(userDto.getUsername(),userDto.getPassword())) {
+        if (userRepo.existsByUserNameAndPassword(userDto.getUserName(),userDto.getNewPassword())) {
             return new ApiResponse("This Login and Password already exists",false);
         }
+
+        if (!userRepo.existsByUserNameAndPassword(userDto.getUserName(),userDto.getOldPassword())) {
+            return new ApiResponse("login or password wrong",false);
+        }
+
+
         Optional<UserEntity> optionalUser = userRepo.findById(id);
 
         UserEntity user = optionalUser.get();
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setUserName(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
+        user.setUserName(userDto.getUserName());
+        user.setPassword(userDto.getNewPassword());
         userRepo.save(user);
 
         return new ApiResponse("Successfully edited",true);

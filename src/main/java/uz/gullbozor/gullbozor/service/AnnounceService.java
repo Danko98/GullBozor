@@ -29,6 +29,7 @@ public class AnnounceService {
     private UserRepo userRepo;
 
     public ApiResponse addAnnounce(AnnounceDto announceDto) {
+
         if (!categoryRepo.existsById(announceDto.getCategoryId())) {
             return new ApiResponse("Not found announce",false);
         }
@@ -43,14 +44,16 @@ public class AnnounceService {
 
         Announce announce = new Announce();
 
-        if (announceDto.getGenerateId() == null) {
 
-        }else {
-            announce.setId(announceDto.getGenerateId());
+
+        if (announceDto.getMainAttachId() != null) {
+            announce.setId(announceDto.getMainAttachId());
         }
 
+        if (announceDto.getAttachmentsId() != null) {
+            announce.setId(announceDto.getAttachmentsId());
+        }
 
-        announce.setAttachContactId(announceDto.getGenerateId());
         announce.setActive(true);
         announce.setCategory(optionalCategory.get());
         announce.setUserEntity(optionalSellerEntity.get());

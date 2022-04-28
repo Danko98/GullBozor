@@ -9,10 +9,12 @@ import lombok.Setter;
 public class AnnounceDto {
 
     private Long shopId;
-    private Long generateId;
+    private Long attachmentsId;
     private Long sellerId;
-    private Long attachMainId;
+    private Long mainAttachId;
     private Long categoryId;
+    private String description;
+    private String title;
     private double price;
     private double height;
     private double diameter;
@@ -20,7 +22,5 @@ public class AnnounceDto {
     private boolean isWithPot;
     private boolean isActive;
     private boolean isWithFertilizer;
-    private String description;
-    private String title;
 
 }

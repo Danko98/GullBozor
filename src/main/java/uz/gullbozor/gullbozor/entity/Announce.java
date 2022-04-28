@@ -2,6 +2,7 @@ package uz.gullbozor.gullbozor.entity;
 import lombok.*;
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 
 @Getter
@@ -18,9 +19,6 @@ public class Announce extends BaseEntity {
     @ManyToOne
     private Category category;
 
-    @OneToMany
-    private List<Attach> attachList;
-
     @Column(name = "price")
     private double price;
 
@@ -30,10 +28,9 @@ public class Announce extends BaseEntity {
     @Column(name = "title")
     private String title;
 
-    @OneToMany
-    private List<Attach> attachIdList;
 
-    private Long attachContactId;
+    private UUID mainAttachId;
+    private Long attachmentsId;
     private Long shopId;
     private double height;
     private double diameter;

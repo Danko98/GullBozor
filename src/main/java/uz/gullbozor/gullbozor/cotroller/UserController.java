@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.gullbozor.gullbozor.apiResponse.ApiResponse;
+import uz.gullbozor.gullbozor.dto.EditUserDto;
 import uz.gullbozor.gullbozor.entity.UserEntity;
 import uz.gullbozor.gullbozor.service.UserService;
 
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> editUser(UserEntity userDto, @PathVariable Long id) {
+    public ResponseEntity<ApiResponse> editUser(EditUserDto userDto, @PathVariable Long id) {
         ApiResponse apiResponse = userService.editUser(userDto, id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

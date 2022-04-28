@@ -10,7 +10,7 @@ import java.util.UUID;
 public class ApiResponse {
 
     private String massage;
-    private boolean success;
+    private boolean success = true;
     private Object object;
 
     private Long attachContactId;

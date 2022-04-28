@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Set;
@@ -24,20 +22,11 @@ import java.util.Set;
 @Table(name = "users")
 public class UserEntity extends BaseEntity implements UserDetails {
 
-    @Column(name = "phone_number",nullable = false,unique = true)
+    @Column(name = "phone_number",unique = true)
     private String phoneNumber;// telefon raqami
 
     @Column(name = "first_name",length = 50,nullable = false)
-    private String firstName;// ismi
-
-    @Column(name = "last_name",length = 50,nullable = false)
-    private String lastName;// familyasi
-
-    @Column(name = "user_name",length = 50,nullable = false)
-    private String userName; // username
-
-    @Column(name = "email",unique = true)
-    private String email; // userning emaili
+    private String userName;// ismi
 
 
     @Column(name = "password",nullable = false)
